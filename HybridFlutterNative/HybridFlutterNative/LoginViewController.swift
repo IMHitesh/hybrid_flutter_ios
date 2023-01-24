@@ -23,7 +23,9 @@ class LoginViewController: BaseViewController {
     }
     
     func setup(){
-        txtEmail.text = "dutta_madhuri@beahan-batz.org"
+        //Sample user login
+        //https://gorest.co.in/public/v2/users
+        txtEmail.text = "akshata_embranthiri@murray-grimes.io"
         txtEmail.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         txtPassword.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         reload()
