@@ -1,0 +1,37 @@
+PODS:
+  - Flutter (1.0.0)
+  - FlutterPluginRegistrant (0.0.1):
+    - Flutter
+    - shared_preferences_foundation
+  - shared_preferences_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
+  - SVProgressHUD (2.2.5)
+
+DEPENDENCIES:
+  - Flutter (from `../my_flutter/.ios/Flutter`)
+  - FlutterPluginRegistrant (from `../my_flutter/.ios/Flutter/FlutterPluginRegistrant`)
+  - shared_preferences_foundation (from `../my_flutter/.ios/.symlinks/plugins/shared_preferences_foundation/ios`)
+  - SVProgressHUD
+
+SPEC REPOS:
+  trunk:
+    - SVProgressHUD
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: "../my_flutter/.ios/Flutter"
+  FlutterPluginRegistrant:
+    :path: "../my_flutter/.ios/Flutter/FlutterPluginRegistrant"
+  shared_preferences_foundation:
+    :path: "../my_flutter/.ios/.symlinks/plugins/shared_preferences_foundation/ios"
+
+SPEC CHECKSUMS:
+  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  FlutterPluginRegistrant: 3c4ee1029181c63e9c8d5bc1b364501dc736d39e
+  shared_preferences_foundation: 297b3ebca31b34ec92be11acd7fb0ba932c822ca
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+
+PODFILE CHECKSUM: 6075642517af511b65368b318c8d85e0fb7eb771
+
+COCOAPODS: 1.11.3
