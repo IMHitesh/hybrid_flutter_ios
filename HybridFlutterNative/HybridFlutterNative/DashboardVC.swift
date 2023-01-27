@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 class DashboardVC: BaseViewController {
+    
     @IBOutlet weak var tblUser : UITableView!
     
     lazy var viewModel = DashboardViewModel()
@@ -33,6 +34,10 @@ class DashboardVC: BaseViewController {
 extension DashboardVC{
     @IBAction func btnLogoutClick(){
         viewModel.onLogoutClick()
+    }
+    
+    @IBAction func btnStartTimerClick(){
+        Router.navigateToCounterScreen()
     }
 }
 

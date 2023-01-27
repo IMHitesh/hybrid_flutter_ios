@@ -4,5 +4,7 @@ enum AppActions {
   validateLoginCred,
   logoutClick,
   getDashboardData,
-  getAuthStatus
+  getAuthStatus,
+  countDownInit,
+  timerPauseOrChangeOrPause
 }

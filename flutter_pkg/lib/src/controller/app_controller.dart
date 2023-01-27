@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_pkg/src/app_config/app_config.dart';
+import 'package:flutter_pkg/src/controller/counter_controller.dart';
 import '../actions/app_actions.dart';
 import 'dashboard_controller.dart';
 import 'login_controller.dart';
@@ -12,6 +13,7 @@ class AppController {
   late final LoginController _loginController = LoginController();
   late final DashboardController _dashboardController = DashboardController();
   late final SplashController _splashController = SplashController();
+  late CounterController _counterController;
 
   AppController() {
     platform.setMethodCallHandler(_receiveFromHost);
@@ -41,6 +43,12 @@ class AppController {
         case AppActions.getDashboardData:
           _dashboardController.getDashboardData(action);
           break;
+        case AppActions.countDownInit:
+          _counterController = CounterController();
+          break;
+        case AppActions.timerPauseOrChangeOrPause:
+          _counterController.onTimerStartClick(action);
+          break;        
       }
     } on PlatformException catch (error) {
       debugPrint(error.toString());

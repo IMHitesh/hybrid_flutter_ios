@@ -11,6 +11,8 @@
 		62096FA429780C0700F569E2 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62096FA329780C0700F569E2 /* LoginViewModel.swift */; };
 		62096FA629781B4300F569E2 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62096FA529781B4300F569E2 /* BaseViewModel.swift */; };
 		62096FA929781D3F00F569E2 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62096FA829781D3F00F569E2 /* Array+Extension.swift */; };
+		6218D6112983A18A0020FB13 /* CounterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6218D6102983A1890020FB13 /* CounterVC.swift */; };
+		6218D6132983A3220020FB13 /* CounterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6218D6122983A3220020FB13 /* CounterViewModel.swift */; };
 		627A005C2976A667001626F9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627A005B2976A667001626F9 /* AppDelegate.swift */; };
 		627A005E2976A667001626F9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627A005D2976A667001626F9 /* SceneDelegate.swift */; };
 		627A00602976A667001626F9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627A005F2976A667001626F9 /* LoginViewController.swift */; };
@@ -35,6 +37,8 @@
 		62096FA329780C0700F569E2 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		62096FA529781B4300F569E2 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		62096FA829781D3F00F569E2 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
+		6218D6102983A1890020FB13 /* CounterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterVC.swift; sourceTree = "<group>"; };
+		6218D6122983A3220020FB13 /* CounterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterViewModel.swift; sourceTree = "<group>"; };
 		627A00582976A667001626F9 /* HybridFlutterNative.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HybridFlutterNative.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		627A005B2976A667001626F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		627A005D2976A667001626F9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -85,6 +89,7 @@
 				62A6AE01297ABED700E5B403 /* SplashViewModel.swift */,
 				62096FA329780C0700F569E2 /* LoginViewModel.swift */,
 				62C04A432979644400642747 /* DashboardViewModel.swift */,
+				6218D6122983A3220020FB13 /* CounterViewModel.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
@@ -96,6 +101,7 @@
 				62A6ADFF297ABE5800E5B403 /* SplashScreen.swift */,
 				627A005F2976A667001626F9 /* LoginViewController.swift */,
 				62C04A3F29795D4500642747 /* DashboardVC.swift */,
+				6218D6102983A1890020FB13 /* CounterVC.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -326,10 +332,12 @@
 				62A6ADFE297AAB4E00E5B403 /* User.swift in Sources */,
 				62C04A4029795D4500642747 /* DashboardVC.swift in Sources */,
 				62096FA429780C0700F569E2 /* LoginViewModel.swift in Sources */,
+				6218D6132983A3220020FB13 /* CounterViewModel.swift in Sources */,
 				62096FA929781D3F00F569E2 /* Array+Extension.swift in Sources */,
 				62A6ADFA297A720F00E5B403 /* UIViewCotroller+Extension.swift in Sources */,
 				627A005E2976A667001626F9 /* SceneDelegate.swift in Sources */,
 				62C04A422979618400642747 /* UIApplication+Extension.swift in Sources */,
+				6218D6112983A18A0020FB13 /* CounterVC.swift in Sources */,
 				62096FA629781B4300F569E2 /* BaseViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

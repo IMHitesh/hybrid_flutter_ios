@@ -107,7 +107,7 @@
             </objects>
             <point key="canvasLocation" x="20" y="65"/>
         </scene>
-        <!--DashboardVC-->
+        <!--Dashboard-->
         <scene sceneID="az2-GY-1O1">
             <objects>
                 <viewController storyboardIdentifier="DashboardVC" id="6em-7o-Axt" customClass="DashboardVC" customModule="HybridFlutterNative" customModuleProvider="target" sceneMemberID="viewController">
@@ -121,20 +121,20 @@
                                     <constraint firstAttribute="height" constant="44" id="LL6-Uw-CJi"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Logout"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Start Timer"/>
                                 <connections>
-                                    <action selector="btnLogoutClick" destination="6em-7o-Axt" eventType="touchUpInside" id="lhK-iA-dmW"/>
+                                    <action selector="btnStartTimerClick" destination="6em-7o-Axt" eventType="touchUpInside" id="BM5-WR-SvC"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="8zo-ST-SXo">
-                                <rect key="frame" x="0.0" y="60" width="414" height="742"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="714"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="tQp-5N-kxL"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="8zo-ST-SXo" firstAttribute="top" secondItem="tQp-5N-kxL" secondAttribute="top" constant="16" id="5Da-YO-U2K"/>
+                            <constraint firstItem="8zo-ST-SXo" firstAttribute="top" secondItem="tQp-5N-kxL" secondAttribute="top" id="5Da-YO-U2K"/>
                             <constraint firstItem="tQp-5N-kxL" firstAttribute="trailing" secondItem="8zo-ST-SXo" secondAttribute="trailing" id="5Wv-cE-JxF"/>
                             <constraint firstItem="bBd-TN-9da" firstAttribute="centerX" secondItem="tQp-5N-kxL" secondAttribute="centerX" id="Mh3-w0-OrY"/>
                             <constraint firstItem="bBd-TN-9da" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tQp-5N-kxL" secondAttribute="leading" id="QNh-p6-ecB"/>
@@ -144,11 +144,92 @@
                             <constraint firstItem="bBd-TN-9da" firstAttribute="top" secondItem="8zo-ST-SXo" secondAttribute="bottom" constant="16" id="znf-lc-kyg"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Dashboard" id="iTu-L4-YsX">
+                        <barButtonItem key="rightBarButtonItem" title="Logout" id="dQf-U9-lMc">
+                            <connections>
+                                <action selector="btnLogoutClick" destination="6em-7o-Axt" id="nXv-yi-bPQ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tblUser" destination="8zo-ST-SXo" id="0gN-gG-qO1"/>
+                        <segue destination="E9E-bX-jGv" kind="show" id="VEw-f6-4Nh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gay-u9-zkF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1746" y="62"/>
+        </scene>
+        <!--Counter-->
+        <scene sceneID="vvH-Uz-hid">
+            <objects>
+                <viewController storyboardIdentifier="CounterVC" id="E9E-bX-jGv" customClass="CounterVC" customModule="HybridFlutterNative" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="iXf-Ia-TxU">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OVy-cF-rrv">
+                                <rect key="frame" x="194" y="188" width="26" height="72"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="60"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not started" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tjx-0u-xXf">
+                                <rect key="frame" x="164" y="276" width="86.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u3n-by-uMw">
+                                <rect key="frame" x="16" y="329" width="382" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="dnB-hF-KFf"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Start Timer"/>
+                                <connections>
+                                    <action selector="onCounterStartClick" destination="E9E-bX-jGv" eventType="touchUpInside" id="QlX-gm-YrY"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="hCO-63-8fx"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Tjx-0u-xXf" firstAttribute="top" secondItem="OVy-cF-rrv" secondAttribute="bottom" constant="16" id="G1E-9g-cXi"/>
+                            <constraint firstItem="OVy-cF-rrv" firstAttribute="top" secondItem="hCO-63-8fx" secondAttribute="top" constant="100" id="R3K-uT-RqP"/>
+                            <constraint firstItem="hCO-63-8fx" firstAttribute="trailing" secondItem="u3n-by-uMw" secondAttribute="trailing" constant="16" id="T9J-4e-UUA"/>
+                            <constraint firstItem="Tjx-0u-xXf" firstAttribute="centerX" secondItem="OVy-cF-rrv" secondAttribute="centerX" id="gzy-YG-l0N"/>
+                            <constraint firstItem="OVy-cF-rrv" firstAttribute="centerX" secondItem="hCO-63-8fx" secondAttribute="centerX" id="mIN-wO-EeA"/>
+                            <constraint firstItem="u3n-by-uMw" firstAttribute="top" secondItem="Tjx-0u-xXf" secondAttribute="bottom" constant="32" id="spm-BL-cCI"/>
+                            <constraint firstItem="u3n-by-uMw" firstAttribute="leading" secondItem="hCO-63-8fx" secondAttribute="leading" constant="16" id="tgE-FH-JAF"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Counter" id="Pew-q5-7gp"/>
+                    <connections>
+                        <outlet property="btnStartTimer" destination="u3n-by-uMw" id="Vyt-CZ-WuJ"/>
+                        <outlet property="lblCounter" destination="OVy-cF-rrv" id="GFz-xx-EYF"/>
+                        <outlet property="lblStatus" destination="Tjx-0u-xXf" id="x9k-hG-yP1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6TP-yT-MNh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2508.6956521739135" y="64.955357142857139"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="fx1-Tk-1Bo">
+            <objects>
+                <navigationController storyboardIdentifier="DashboardRoutes" automaticallyAdjustsScrollViewInsets="NO" id="Bji-dZ-NlL" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="T4V-xQ-4iv">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="6em-7o-Axt" kind="relationship" relationship="rootViewController" id="BpY-Y2-QRQ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x9m-sk-zLu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="971.01449275362324" y="61.607142857142854"/>
         </scene>

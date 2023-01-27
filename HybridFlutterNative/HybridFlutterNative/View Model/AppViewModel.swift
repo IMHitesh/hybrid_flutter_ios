@@ -16,6 +16,8 @@ enum Action: String {
     case logoutClick
     case getAuthStatus
     case getDashboardData
+    case countDownInit
+    case timerPauseOrChangeOrPause
 }
 
 class AppViewModel {
@@ -62,6 +64,12 @@ class AppViewModel {
         case .getAuthStatus:
             onAuthStatusResponse(method)
             break
+        case .countDownInit:
+            timerStartOrChangeOrPause(method)
+            break
+        case .timerPauseOrChangeOrPause:
+            timerStartOrChangeOrPause(method)
+            break
         case .none:
             print("Method is not handled")
         }
@@ -69,7 +77,7 @@ class AppViewModel {
     }
     
     
-    func triggerFlutterMethod(action: Action, channelName: String = "com.bytes.fast", data: Dictionary<String, String>? = nil){
+    func triggerFlutterMethod(action: Action, channelName: String = "com.bytes.fast", data: Dictionary<String, Any>? = nil){
         if let flutterEngine = (UIApplication.shared.delegate as? AppDelegate)?.flutterEngine{
             let flutterViewController = FlutterViewController(engine: flutterEngine, nibName: nil, bundle: nil)
             let channel = FlutterMethodChannel(name: channelName, binaryMessenger: flutterViewController.binaryMessenger)
@@ -90,7 +98,7 @@ class AppViewModel {
     }
 }
 
-///LoginViewModel
+//Mark:- LoginViewModel
 extension AppViewModel{
     fileprivate func validateLoginCred(_ method: FlutterMethodCall) {
         if let data = method.arguments as? [String: Any]{
@@ -112,11 +120,9 @@ extension AppViewModel{
             splashViewModel?.onAuthStatusResponse(data: data)
         }
     }
-    
-    
 }
 
-///MARK: Dashboard
+//Mark:- Dashboard
 extension AppViewModel {
     
     private func onLogoutClickResponse(_ method: FlutterMethodCall) {
@@ -130,6 +136,16 @@ extension AppViewModel {
         if let data = method.arguments as? [String: Any]{
             let dashboardViewModel = arrObserver.find(_obj: DashboardViewModel.self)
             dashboardViewModel?.getDashboardDataResponse(data: data)
+        }
+    }
+}
+
+//MARK:- Counter
+extension AppViewModel {
+    private func timerStartOrChangeOrPause(_ method: FlutterMethodCall) {
+        if let data = method.arguments as? [String: Any]{
+            let counterViewModel = arrObserver.find(_obj: CounterViewModel.self)
+            counterViewModel?.onTimerStartOrChangeResponse(data: data)
         }
     }
 }

@@ -10,19 +10,28 @@ let APP_DELEGATE: AppDelegate = UIApplication.shared.delegate as! AppDelegate
 
 
 class Router {
-    static var storyboard: UIStoryboard?
+    static var storyboard: UIStoryboard!
+    static var navigation: UINavigationController!
     
     static func navigateToDashboard(){
-        let story = UIStoryboard(name: "Main", bundle:nil)
-        let dashboard = story.instantiateViewController(withIdentifier: "DashboardVC") as! DashboardVC
-        UIApplication.shared.keyWindow?.rootViewController = dashboard
+        let mainStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        storyboard = mainStoryboard
+        let authNavigation = storyboard.instantiateViewController(withIdentifier: "DashboardRoutes") as? UINavigationController
+        navigation = authNavigation
+        UIApplication.shared.keyWindow?.rootViewController = navigation
         UIApplication.shared.keyWindow?.makeKeyAndVisible()
     }
     
     static func navigateToLogin(){
-        let story = UIStoryboard(name: "Main", bundle:nil)
-        let dashboard = story.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        let mainStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        storyboard = mainStoryboard
+        let dashboard = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
         UIApplication.shared.keyWindow?.rootViewController = dashboard
         UIApplication.shared.keyWindow?.makeKeyAndVisible()
+    }
+    
+    static func navigateToCounterScreen(){
+        let counter = storyboard.instantiateViewController(withIdentifier: "CounterVC") as! CounterVC
+        navigation.pushViewController(counter, animated: true)
     }
 }
