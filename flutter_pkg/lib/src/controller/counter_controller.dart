@@ -9,8 +9,7 @@ class CounterController {
   int second = 60;
   CounterStatus _counterStatus = CounterStatus.notStarted;
   CounterController() {
-    AppController.triggerNativeMethod(AppActions.countDownInit,
-        {"seconds": second, "state": _counterStatus.name});
+    AppController.triggerNativeMethod(AppActions.countDownInit, {"seconds": second, "state": _counterStatus.name});
   }
 
   onTimerStartClick(AppActions action) {
@@ -36,9 +35,11 @@ class CounterController {
       timer?.cancel();
       _counterStatus = CounterStatus.pause;
     } else {
+      if (_counterStatus == CounterStatus.running) {
+        second = 60;
+      }
       _counterStatus = CounterStatus.running;
-      timer = Timer.periodic(
-          const Duration(seconds: 1), (Timer t) => onTimerValueChange());
+      timer = Timer.periodic(const Duration(seconds: 1), (Timer t) => onTimerValueChange());
     }
     passDataToNative();
   }
