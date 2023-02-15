@@ -20,15 +20,7 @@ class AppDelegate: FlutterAppDelegate {
         
         flutterEngine.run()
         GeneratedPluginRegistrant.register(with:flutterEngine)            
-        let appConfig:[String : String] = [
-            "env": "development",
-            "api": "api",
-            "iosAppId":"1234567890",
-            "androidPackageName":"com.bytes.hitesh"
-        ]
-        
-        AppViewModel.shared.triggerFlutterMethod(action: .appConfig,data: appConfig)
-        
+
         // Override point for customization after application launch.
         Router.splashScreen()
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)

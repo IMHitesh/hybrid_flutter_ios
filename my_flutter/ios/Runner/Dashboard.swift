@@ -31,39 +31,7 @@ private func wrapError(_ error: Any) -> [Any?] {
   ]
 }
 
-/// Generated class from Pigeon that represents data sent in messages.
-//struct User {
-//  var id: Int32? = nil
-//  var email: String? = nil
-//  var name: String? = nil
-//  var gender: String? = nil
-//  var status: String? = nil
-//
-//  static func fromList(_ list: [Any?]) -> User? {
-//    let id = list[0] as? Int32 
-//    let email = list[1] as? String 
-//    let name = list[2] as? String 
-//    let gender = list[3] as? String 
-//    let status = list[4] as? String 
-//
-//    return User(
-//      id: id,
-//      email: email,
-//      name: name,
-//      gender: gender,
-//      status: status
-//    )
-//  }
-//  func toList() -> [Any?] {
-//    return [
-//      id,
-//      email,
-//      name,
-//      gender,
-//      status,
-//    ]
-//  }
-//}
+
 private class DashboardCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
@@ -102,8 +70,8 @@ class DashboardCodec: FlutterStandardMessageCodec {
 
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol Dashboard {
-  func onLogout(isLogout: Bool, message: String) throws
-  func onUserFetch(users: [User]?, message: String) throws
+  func onLogoutResponse(isLogout: Bool, message: String) throws
+  func fetchUserListSuccess(users: [User]?, message: String) throws
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -112,37 +80,56 @@ class DashboardSetup {
   static var codec: FlutterStandardMessageCodec { DashboardCodec.shared }
   /// Sets up an instance of `Dashboard` to handle messages through the `binaryMessenger`.
   static func setUp(binaryMessenger: FlutterBinaryMessenger, api: Dashboard?) {
-    let onLogoutChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.Dashboard.onLogout", binaryMessenger: binaryMessenger, codec: codec)
+    let onLogoutResponseChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.Dashboard.onLogoutResponse", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
-      onLogoutChannel.setMessageHandler { message, reply in
+      onLogoutResponseChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
         let isLogoutArg = args[0] as! Bool
         let messageArg = args[1] as! String
         do {
-          try api.onLogout(isLogout: isLogoutArg, message: messageArg)
+          try api.onLogoutResponse(isLogout: isLogoutArg, message: messageArg)
           reply(wrapResult(nil))
         } catch {
           reply(wrapError(error))
         }
       }
     } else {
-      onLogoutChannel.setMessageHandler(nil)
+      onLogoutResponseChannel.setMessageHandler(nil)
     }
-    let onUserFetchChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.Dashboard.onUserFetch", binaryMessenger: binaryMessenger, codec: codec)
+    let fetchUserListSuccessChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.Dashboard.fetchUserListSuccess", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
-      onUserFetchChannel.setMessageHandler { message, reply in
+      fetchUserListSuccessChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
         let usersArg = args[0] as? [User]
         let messageArg = args[1] as! String
         do {
-          try api.onUserFetch(users: usersArg, message: messageArg)
+          try api.fetchUserListSuccess(users: usersArg, message: messageArg)
           reply(wrapResult(nil))
         } catch {
           reply(wrapError(error))
         }
       }
     } else {
-      onUserFetchChannel.setMessageHandler(nil)
+      fetchUserListSuccessChannel.setMessageHandler(nil)
+    }
+  }
+}
+/// Generated class from Pigeon that represents Flutter messages that can be called from Swift.
+class DashboardInteractor {
+  private let binaryMessenger: FlutterBinaryMessenger
+  init(binaryMessenger: FlutterBinaryMessenger){
+    self.binaryMessenger = binaryMessenger
+  }
+  func fetchUserList(completion: @escaping () -> Void) {
+    let channel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.DashboardInteractor.fetchUserList", binaryMessenger: binaryMessenger)
+    channel.sendMessage(nil) { _ in
+      completion()
+    }
+  }
+  func onLogout(completion: @escaping () -> Void) {
+    let channel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.DashboardInteractor.onLogout", binaryMessenger: binaryMessenger)
+    channel.sendMessage(nil) { _ in
+      completion()
     }
   }
 }

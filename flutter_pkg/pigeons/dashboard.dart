@@ -11,6 +11,12 @@ class User {
 
 @HostApi()
 abstract class Dashboard {
-  void onLogout(bool isLogout, String message);  
-  void onUserFetch(List<User>? users, String message);
+  void onLogoutResponse(bool isLogout, String message);  
+  void fetchUserListSuccess(List<User>? users, String message);
+}
+
+@FlutterApi()
+abstract class DashboardInteractor {
+  void fetchUserList();  
+  void onLogout();
 }

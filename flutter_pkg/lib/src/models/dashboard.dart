@@ -7,48 +7,9 @@ import 'dart:typed_data' show Float64List, Int32List, Int64List, Uint8List;
 
 import 'package:flutter/foundation.dart' show ReadBuffer, WriteBuffer;
 import 'package:flutter/services.dart';
-import 'package:flutter_pkg/src/models/user.dart';
 
-// class User {
-//   User({
-//     this.id,
-//     this.email,
-//     this.name,
-//     this.gender,
-//     this.status,
-//   });
+import 'user.dart';
 
-//   int? id;
-
-//   String? email;
-
-//   String? name;
-
-//   String? gender;
-
-//   String? status;
-
-//   Object encode() {
-//     return <Object?>[
-//       id,
-//       email,
-//       name,
-//       gender,
-//       status,
-//     ];
-//   }
-
-//   static User decode(Object result) {
-//     result as List<Object?>;
-//     return User(
-//       id: result[0] as int?,
-//       email: result[1] as String?,
-//       name: result[2] as String?,
-//       gender: result[3] as String?,
-//       status: result[4] as String?,
-//     );
-//   }
-// }
 
 class _DashboardCodec extends StandardMessageCodec {
   const _DashboardCodec();
@@ -83,9 +44,9 @@ class Dashboard {
 
   static const MessageCodec<Object?> codec = _DashboardCodec();
 
-  Future<void> onLogout(bool arg_isLogout, String arg_message) async {
+  Future<void> onLogoutResponse(bool arg_isLogout, String arg_message) async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.Dashboard.onLogout', codec,
+        'dev.flutter.pigeon.Dashboard.onLogoutResponse', codec,
         binaryMessenger: _binaryMessenger);
     final List<Object?>? replyList =
         await channel.send(<Object?>[arg_isLogout, arg_message]) as List<Object?>?;
@@ -105,9 +66,9 @@ class Dashboard {
     }
   }
 
-  Future<void> onUserFetch(List<User?>? arg_users, String arg_message) async {
+  Future<void> fetchUserListSuccess(List<User?>? arg_users, String arg_message) async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.Dashboard.onUserFetch', codec,
+        'dev.flutter.pigeon.Dashboard.fetchUserListSuccess', codec,
         binaryMessenger: _binaryMessenger);
     final List<Object?>? replyList =
         await channel.send(<Object?>[arg_users, arg_message]) as List<Object?>?;
@@ -124,6 +85,45 @@ class Dashboard {
       );
     } else {
       return;
+    }
+  }
+}
+
+abstract class DashboardInteractor {
+  static const MessageCodec<Object?> codec = StandardMessageCodec();
+
+  void fetchUserList();
+
+  void onLogout();
+
+  static void setup(DashboardInteractor? api, {BinaryMessenger? binaryMessenger}) {
+    {
+      final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
+          'dev.flutter.pigeon.DashboardInteractor.fetchUserList', codec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        channel.setMessageHandler(null);
+      } else {
+        channel.setMessageHandler((Object? message) async {
+          // ignore message
+          api.fetchUserList();
+          return;
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
+          'dev.flutter.pigeon.DashboardInteractor.onLogout', codec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        channel.setMessageHandler(null);
+      } else {
+        channel.setMessageHandler((Object? message) async {
+          // ignore message
+          api.onLogout();
+          return;
+        });
+      }
     }
   }
 }

@@ -160,30 +160,22 @@ class LoginSetup {
     }
   }
 }
-/// Generated protocol from Pigeon that represents a handler of messages from Flutter.
-protocol Splash {
-  func onAuthStatusChange(isLogin: Bool) throws
-}
-
-/// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
-class SplashSetup {
-  /// The codec used by Splash.
-  /// Sets up an instance of `Splash` to handle messages through the `binaryMessenger`.
-  static func setUp(binaryMessenger: FlutterBinaryMessenger, api: Splash?) {
-    let onAuthStatusChangeChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.Splash.onAuthStatusChange", binaryMessenger: binaryMessenger)
-    if let api = api {
-      onAuthStatusChangeChannel.setMessageHandler { message, reply in
-        let args = message as! [Any?]
-        let isLoginArg = args[0] as! Bool
-        do {
-          try api.onAuthStatusChange(isLogin: isLoginArg)
-          reply(wrapResult(nil))
-        } catch {
-          reply(wrapError(error))
-        }
-      }
-    } else {
-      onAuthStatusChangeChannel.setMessageHandler(nil)
+/// Generated class from Pigeon that represents Flutter messages that can be called from Swift.
+class LoginInteractor {
+  private let binaryMessenger: FlutterBinaryMessenger
+  init(binaryMessenger: FlutterBinaryMessenger){
+    self.binaryMessenger = binaryMessenger
+  }
+  func doLogin(email emailArg: String, password passwordArg: String, completion: @escaping () -> Void) {
+    let channel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.LoginInteractor.doLogin", binaryMessenger: binaryMessenger)
+    channel.sendMessage([emailArg, passwordArg] as [Any?]) { _ in
+      completion()
+    }
+  }
+  func validateCredential(email emailArg: String, password passwordArg: String, completion: @escaping () -> Void) {
+    let channel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.LoginInteractor.validateCredential", binaryMessenger: binaryMessenger)
+    channel.sendMessage([emailArg, passwordArg] as [Any?]) { _ in
+      completion()
     }
   }
 }

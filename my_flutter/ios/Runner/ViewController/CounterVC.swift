@@ -11,7 +11,7 @@ class CounterVC: BaseViewController {
     @IBOutlet weak var lblCounter : UILabel!
     @IBOutlet weak var lblStatus : UILabel!
     @IBOutlet weak var btnStartTimer : UIButton!
-    
+    let counterInteractor = CounterInteractor(binaryMessenger: flutterEngine.binaryMessenger)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,14 +25,13 @@ class CounterVC: BaseViewController {
     //Init data
     private func setup(){
         CounterSetup.setUp(binaryMessenger: flutterEngine.binaryMessenger, api: self)
-        AppViewModel.shared.triggerFlutterMethod(action: .countDownInit)
     }
 }
 
 //Mark:- Actions
 extension CounterVC {
     @IBAction func onCounterStartClick(){
-        AppViewModel.shared.triggerFlutterMethod(action: .timerPauseOrChangeOrPause)        
+        counterInteractor.onTimerStartOrChange(completion: {})
     }
 }
 

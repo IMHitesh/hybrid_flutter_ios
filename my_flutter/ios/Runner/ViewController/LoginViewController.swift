@@ -17,6 +17,7 @@ class LoginViewController: BaseViewController {
     @IBOutlet weak var btnForgotPassword : UIButton!
     
     var isValid = false
+    let loginInteractor = LoginInteractor(binaryMessenger: flutterEngine.binaryMessenger)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,10 +27,10 @@ class LoginViewController: BaseViewController {
     func setup(){
         ///Pegion setup
         LoginSetup.setUp(binaryMessenger: flutterEngine.binaryMessenger, api: self)
-        
+
         //Sample user login
         //https://gorest.co.in/public/v2/users
-        txtEmail.text = "msgr_tanushree_shukla@franecki.biz"
+        txtEmail.text = "gajbaahu_asan@bosco.co"
         txtEmail.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         txtPassword.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         try? validateCredential(isValid: false)
@@ -61,18 +62,13 @@ extension LoginViewController: Login{
 extension LoginViewController{
     
     @objc func textFieldDidChange(){
-        let data: [String: String] = [
-            "email": txtEmail.text ?? "",
-            "password": txtPassword.text ?? ""
-        ]
-        
-        AppViewModel.shared.triggerFlutterMethod(action: .validateLoginCred, data: data)
+        loginInteractor.validateCredential(email: txtEmail.text ?? "", password: txtPassword.text ?? "", completion: {})
     }
     
     @IBAction func btnLoginClick(){
         self.view.endEditing(true)
         SVProgressHUD.show()
-        AppViewModel.shared.triggerFlutterMethod(action: .loginClick)
+        loginInteractor.doLogin(email: txtEmail.text ?? "", password: txtPassword.text ?? "", completion: { })
     }
     
     @IBAction func btnForgotPasswordClick(){

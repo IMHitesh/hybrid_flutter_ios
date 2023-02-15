@@ -1,29 +1,32 @@
 import 'dart:convert';
-
 import 'package:flutter_pkg/src/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../actions/app_actions.dart';
 import 'package:http/http.dart' as http;
-
 import '../models/dashboard.dart';
 
-class DashboardController {
+class DashboardController extends DashboardInteractor {
   final dashboard = Dashboard();
 
-  logoutClick(Map<String, dynamic>? data, AppActions action) async {
-    final pref = await SharedPreferences.getInstance();
-    pref.setBool("is_login", false);
-    dashboard.onLogout(true, "Logout successfull");
+  DashboardController() {
+    DashboardInteractor.setup(this);
   }
 
-  getDashboardData(AppActions action) async {
+  @override
+  void fetchUserList() async {
     final users = await fetchUsers();
-    dashboard.onUserFetch(users, "Success");    
+    dashboard.fetchUserListSuccess(users, "Success");
+  }
+
+   @override
+  void onLogout() async{
+    final pref = await SharedPreferences.getInstance();
+    pref.setBool("is_login", false);
+    dashboard.onLogoutResponse(true, "Logout successfull");
   }
 
   Future<List<User>> fetchUsers() async {
-    final response = await http.get(Uri.parse('https://gorest.co.in/public/v2/users'));
+    final response =
+        await http.get(Uri.parse('https://gorest.co.in/public/v2/users'));
     List<User> arrUser = [];
     if (response.statusCode == 200) {
       List arrUsers = jsonDecode(response.body) ?? [];

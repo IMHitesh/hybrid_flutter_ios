@@ -8,6 +8,8 @@ import 'dart:typed_data' show Float64List, Int32List, Int64List, Uint8List;
 import 'package:flutter/foundation.dart' show ReadBuffer, WriteBuffer;
 import 'package:flutter/services.dart';
 
+import '../controller/login_controller.dart';
+
 class User {
   User({
     this.id,
@@ -82,7 +84,7 @@ class _LoginCodec extends StandardMessageCodec {
   @override
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
-      case 128: 
+      case 128:
         return User.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
@@ -122,28 +124,6 @@ class Login {
     }
   }
 
-    Future<void> validateCredential(bool arg_isValid) async {
-    final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.Login.validateCredential', codec,
-        binaryMessenger: _binaryMessenger);
-    final List<Object?>? replyList = await channel.send(<Object?>[arg_isValid]) as List<Object?>?;
-    if (replyList == null) {
-      throw PlatformException(
-        code: 'channel-error',
-        message: 'Unable to establish connection on channel.',
-      );
-    } else if (replyList.length > 1) {
-      throw PlatformException(
-        code: replyList[0]! as String,
-        message: replyList[1] as String?,
-        details: replyList[2],
-      );
-    } else {
-      return;
-    }
-  }
-
-
   Future<void> loginFailed(String arg_message) async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
         'dev.flutter.pigeon.Login.loginFailed', codec,
@@ -163,6 +143,83 @@ class Login {
       );
     } else {
       return;
+    }
+  }
+
+  Future<void> validateCredential(bool arg_isValid) async {
+    final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.Login.validateCredential', codec,
+        binaryMessenger: _binaryMessenger);
+    final List<Object?>? replyList =
+        await channel.send(<Object?>[arg_isValid]) as List<Object?>?;
+    if (replyList == null) {
+      throw PlatformException(
+        code: 'channel-error',
+        message: 'Unable to establish connection on channel.',
+      );
+    } else if (replyList.length > 1) {
+      throw PlatformException(
+        code: replyList[0]! as String,
+        message: replyList[1] as String?,
+        details: replyList[2],
+      );
+    } else {
+      return;
+    }
+  }
+}
+
+abstract class LoginInteractor {
+  static const MessageCodec<Object?> codec = StandardMessageCodec();
+
+  void doLogin(String email, String password);
+
+  void validateCredential(String email, String password);
+
+  static void setup(LoginInteractor? api, {BinaryMessenger? binaryMessenger}) {
+    {      
+      final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
+          'dev.flutter.pigeon.LoginInteractor.doLogin', codec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        channel.setMessageHandler(null);
+      } else {
+        channel.setMessageHandler((Object? message) async {
+          assert(message != null,
+              'Argument for dev.flutter.pigeon.LoginInteractor.doLogin was null.');
+          final List<Object?> args = (message as List<Object?>?)!;
+          final String? arg_email = (args[0] as String?);
+          assert(arg_email != null,
+              'Argument for dev.flutter.pigeon.LoginInteractor.doLogin was null, expected non-null String.');
+          final String? arg_password = (args[1] as String?);
+          assert(arg_password != null,
+              'Argument for dev.flutter.pigeon.LoginInteractor.doLogin was null, expected non-null String.');
+          api.doLogin(arg_email!, arg_password!);
+          return;
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
+          'dev.flutter.pigeon.LoginInteractor.validateCredential', codec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        channel.setMessageHandler(null);
+      } else {
+        channel.setMessageHandler((Object? message) async {
+          assert(message != null,
+              'Argument for dev.flutter.pigeon.LoginInteractor.validateCredential was null.');
+          final List<Object?> args = (message as List<Object?>?)!;
+          final String? arg_email = (args[0] as String?);
+          assert(arg_email != null,
+              'Argument for dev.flutter.pigeon.LoginInteractor.validateCredential was null, expected non-null String.');
+          final String? arg_password = (args[1] as String?);
+          assert(arg_password != null,
+              'Argument for dev.flutter.pigeon.LoginInteractor.validateCredential was null, expected non-null String.');
+          api.validateCredential(arg_email!, arg_password!);
+          return;
+        });
+      }
     }
   }
 }

@@ -12,6 +12,7 @@ import SVProgressHUD
 class DashboardVC: BaseViewController {
     
     @IBOutlet weak var tblUser : UITableView!
+    let dashboardInteractor = DashboardInteractor.init(binaryMessenger: flutterEngine.binaryMessenger)
     
     var users: [User] = []
     
@@ -29,7 +30,7 @@ class DashboardVC: BaseViewController {
         tblUser.tableFooterView = UIView()
         tblUser.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         SVProgressHUD.show()
-        AppViewModel.shared.triggerFlutterMethod(action: .getDashboardData)
+        dashboardInteractor.fetchUserList(completion: {})
     }
 }
 
@@ -37,7 +38,7 @@ class DashboardVC: BaseViewController {
 extension DashboardVC{
     @IBAction func btnLogoutClick(){
         SVProgressHUD.show()
-        AppViewModel.shared.triggerFlutterMethod(action: .logoutClick)
+        dashboardInteractor.onLogout(completion: {})        
     }
     
     @IBAction func btnStartTimerClick(){
@@ -47,13 +48,14 @@ extension DashboardVC{
 
 //MARK: DashboardDelegate - Callback from the flutter
 extension DashboardVC: Dashboard {
-    func onUserFetch(users: [User]?, message: String) throws {
+    
+    func fetchUserListSuccess(users: [User]?, message: String) throws {
         SVProgressHUD.dismiss()
         self.users = users ?? []
         reload()
     }
     
-    func onLogout(isLogout: Bool, message: String) throws {
+    func onLogoutResponse(isLogout: Bool, message: String) throws {
         Router.navigateToLogin()        
     }
     

@@ -31,41 +31,40 @@ private func wrapError(_ error: Any) -> [Any?] {
   ]
 }
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
-protocol Counter {
-  func onTimerStartOrChange(state: String, duration: Int32) throws
+protocol Splash {
+  func onAuthStatusChange(isLogin: Bool) throws
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
-class CounterSetup {
-  /// The codec used by Counter.
-  /// Sets up an instance of `Counter` to handle messages through the `binaryMessenger`.
-  static func setUp(binaryMessenger: FlutterBinaryMessenger, api: Counter?) {
-    let onTimerStartOrChangeChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.Counter.onTimerStartOrChange", binaryMessenger: binaryMessenger)
+class SplashSetup {
+  /// The codec used by Splash.
+  /// Sets up an instance of `Splash` to handle messages through the `binaryMessenger`.
+  static func setUp(binaryMessenger: FlutterBinaryMessenger, api: Splash?) {
+    let onAuthStatusChangeChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.Splash.onAuthStatusChange", binaryMessenger: binaryMessenger)
     if let api = api {
-      onTimerStartOrChangeChannel.setMessageHandler { message, reply in
+      onAuthStatusChangeChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
-        let stateArg = args[0] as! String
-        let durationArg = args[1] as! Int32
+        let isLoginArg = args[0] as! Bool
         do {
-          try api.onTimerStartOrChange(state: stateArg, duration: durationArg)
+          try api.onAuthStatusChange(isLogin: isLoginArg)
           reply(wrapResult(nil))
         } catch {
           reply(wrapError(error))
         }
       }
     } else {
-      onTimerStartOrChangeChannel.setMessageHandler(nil)
+      onAuthStatusChangeChannel.setMessageHandler(nil)
     }
   }
 }
 /// Generated class from Pigeon that represents Flutter messages that can be called from Swift.
-class CounterInteractor {
+class SplashInteractor {
   private let binaryMessenger: FlutterBinaryMessenger
   init(binaryMessenger: FlutterBinaryMessenger){
     self.binaryMessenger = binaryMessenger
   }
-  func onTimerStartOrChange(completion: @escaping () -> Void) {
-    let channel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.CounterInteractor.onTimerStartOrChange", binaryMessenger: binaryMessenger)
+  func getAuthStatus(completion: @escaping () -> Void) {
+    let channel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.SplashInteractor.getAuthStatus", binaryMessenger: binaryMessenger)
     channel.sendMessage(nil) { _ in
       completion()
     }

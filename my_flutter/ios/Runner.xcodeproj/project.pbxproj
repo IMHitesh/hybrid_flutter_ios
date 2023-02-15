@@ -15,7 +15,6 @@
 		624827D72996550D0023C107 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624827C22996550D0023C107 /* Array+Extension.swift */; };
 		624827D82996550D0023C107 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624827C42996550D0023C107 /* Router.swift */; };
 		624827D92996550D0023C107 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624827C72996550D0023C107 /* User.swift */; };
-		624827DE2996550D0023C107 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624827CD2996550D0023C107 /* AppViewModel.swift */; };
 		624827E02996550D0023C107 /* CounterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624827D02996550D0023C107 /* CounterVC.swift */; };
 		624827E12996550D0023C107 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624827D12996550D0023C107 /* BaseViewController.swift */; };
 		624827E22996550D0023C107 /* DashboardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624827D22996550D0023C107 /* DashboardVC.swift */; };
@@ -24,6 +23,7 @@
 		62C029D6299CB58E00C9133A /* UserAuthenticationFlutter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C029D4299CB58E00C9133A /* UserAuthenticationFlutter.swift */; };
 		62C029D8299CBEB900C9133A /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C029D7299CBEB900C9133A /* Dashboard.swift */; };
 		62C029DA299CCF3C00C9133A /* Counter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C029D9299CCF3C00C9133A /* Counter.swift */; };
+		62C029DC299D0EEA00C9133A /* Splash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C029DB299D0EEA00C9133A /* Splash.swift */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
@@ -54,7 +54,6 @@
 		624827C22996550D0023C107 /* Array+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		624827C42996550D0023C107 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		624827C72996550D0023C107 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		624827CD2996550D0023C107 /* AppViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
 		624827D02996550D0023C107 /* CounterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CounterVC.swift; sourceTree = "<group>"; };
 		624827D12996550D0023C107 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		624827D22996550D0023C107 /* DashboardVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardVC.swift; sourceTree = "<group>"; };
@@ -63,6 +62,7 @@
 		62C029D4299CB58E00C9133A /* UserAuthenticationFlutter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAuthenticationFlutter.swift; sourceTree = "<group>"; };
 		62C029D7299CBEB900C9133A /* Dashboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
 		62C029D9299CCF3C00C9133A /* Counter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Counter.swift; sourceTree = "<group>"; };
+		62C029DB299D0EEA00C9133A /* Splash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Splash.swift; sourceTree = "<group>"; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
@@ -132,14 +132,6 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		624827C82996550D0023C107 /* View Model */ = {
-			isa = PBXGroup;
-			children = (
-				624827CD2996550D0023C107 /* AppViewModel.swift */,
-			);
-			path = "View Model";
-			sourceTree = "<group>";
-		};
 		624827CF2996550D0023C107 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -185,6 +177,7 @@
 		97C146F01CF9000F007C117D /* Runner */ = {
 			isa = PBXGroup;
 			children = (
+				62C029DB299D0EEA00C9133A /* Splash.swift */,
 				62C029D9299CCF3C00C9133A /* Counter.swift */,
 				62C029D7299CBEB900C9133A /* Dashboard.swift */,
 				62C029D4299CB58E00C9133A /* UserAuthenticationFlutter.swift */,
@@ -192,7 +185,6 @@
 				624827C62996550D0023C107 /* Models */,
 				624827C32996550D0023C107 /* Router */,
 				624827C52996550D0023C107 /* Shared */,
-				624827C82996550D0023C107 /* View Model */,
 				624827CF2996550D0023C107 /* ViewController */,
 				97C146FA1CF9000F007C117D /* Main.storyboard */,
 				97C146FD1CF9000F007C117D /* Assets.xcassets */,
@@ -366,7 +358,6 @@
 				624827E42996550D0023C107 /* LoginViewController.swift in Sources */,
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
 				624827D72996550D0023C107 /* Array+Extension.swift in Sources */,
-				624827DE2996550D0023C107 /* AppViewModel.swift in Sources */,
 				624827D62996550D0023C107 /* UIViewCotroller+Extension.swift in Sources */,
 				624827E12996550D0023C107 /* BaseViewController.swift in Sources */,
 				62C029D6299CB58E00C9133A /* UserAuthenticationFlutter.swift in Sources */,
@@ -379,6 +370,7 @@
 				624827E22996550D0023C107 /* DashboardVC.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 				624827D92996550D0023C107 /* User.swift in Sources */,
+				62C029DC299D0EEA00C9133A /* Splash.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

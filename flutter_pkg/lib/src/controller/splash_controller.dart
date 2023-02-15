@@ -1,14 +1,17 @@
-import 'package:flutter_pkg/src/models/user.dart';
+import 'package:flutter_pkg/src/models/splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../actions/app_actions.dart';
-
-class SplashController {
+class SplashController extends SplashInteractor{
   final splash = Splash();
+
+  SplashController() {
+    SplashInteractor.setup(this);
+  }
   
-  getAuthStatus(Map<String, dynamic>? data, AppActions action) async {
+  @override
+  void getAuthStatus() async{
     final pref = await SharedPreferences.getInstance();
     final isLogin = pref.getBool("is_login") ?? false;
-    splash.onAuthStatusChange(isLogin);    
-  }
+    splash.onAuthStatusChange(isLogin);
+  }  
 }

@@ -8,22 +8,22 @@ import 'dart:typed_data' show Float64List, Int32List, Int64List, Uint8List;
 import 'package:flutter/foundation.dart' show ReadBuffer, WriteBuffer;
 import 'package:flutter/services.dart';
 
-class Counter {
-  /// Constructor for [Counter].  The [binaryMessenger] named argument is
+class Splash {
+  /// Constructor for [Splash].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
   /// BinaryMessenger will be used which routes to the host platform.
-  Counter({BinaryMessenger? binaryMessenger})
+  Splash({BinaryMessenger? binaryMessenger})
       : _binaryMessenger = binaryMessenger;
   final BinaryMessenger? _binaryMessenger;
 
   static const MessageCodec<Object?> codec = StandardMessageCodec();
 
-  Future<void> onTimerStartOrChange(String arg_state, int arg_duration) async {
+  Future<void> onAuthStatusChange(bool arg_isLogin) async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.Counter.onTimerStartOrChange', codec,
+        'dev.flutter.pigeon.Splash.onAuthStatusChange', codec,
         binaryMessenger: _binaryMessenger);
     final List<Object?>? replyList =
-        await channel.send(<Object?>[arg_state, arg_duration]) as List<Object?>?;
+        await channel.send(<Object?>[arg_isLogin]) as List<Object?>?;
     if (replyList == null) {
       throw PlatformException(
         code: 'channel-error',
@@ -41,22 +41,22 @@ class Counter {
   }
 }
 
-abstract class CounterInteractor {
+abstract class SplashInteractor {
   static const MessageCodec<Object?> codec = StandardMessageCodec();
 
-  void onTimerStartOrChange();
+  void getAuthStatus();
 
-  static void setup(CounterInteractor? api, {BinaryMessenger? binaryMessenger}) {
+  static void setup(SplashInteractor? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.CounterInteractor.onTimerStartOrChange', codec,
+          'dev.flutter.pigeon.SplashInteractor.getAuthStatus', codec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         channel.setMessageHandler(null);
       } else {
         channel.setMessageHandler((Object? message) async {
           // ignore message
-          api.onTimerStartOrChange();
+          api.getAuthStatus();
           return;
         });
       }

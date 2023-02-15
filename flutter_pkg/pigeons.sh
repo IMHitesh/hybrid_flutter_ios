@@ -1,13 +1,27 @@
+#1 For the user
 # flutter pub run pigeon \
 #   --input pigeons/user.dart \
 #   --dart_out lib/src/models/user.dart \
 #   --experimental_swift_out ../my_flutter/ios/Runner/UserAuthenticationFlutter.swift
 
+#2 For the Splash
+# flutter pub run pigeon \
+#   --input pigeons/splash.dart \
+#   --dart_out lib/src/models/splash.dart \
+#   --experimental_swift_out ../my_flutter/ios/Runner/Splash.swift
+
+
+#3 For the counter
 flutter pub run pigeon \
   --input pigeons/counter.dart \
   --dart_out lib/src/models/counter.dart \
   --experimental_swift_out ../my_flutter/ios/Runner/Counter.swift
 
+#4 For the Dashboard
+flutter pub run pigeon \
+  --input pigeons/dashboard.dart \
+  --dart_out lib/src/models/dashboard.dart \
+  --experimental_swift_out ../my_flutter/ios/Runner/Dashboard.swift
   
 
   # Orignal

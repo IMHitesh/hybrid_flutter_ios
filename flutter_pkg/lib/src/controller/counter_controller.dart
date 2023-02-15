@@ -1,21 +1,22 @@
 import 'dart:async';
-import '../actions/app_actions.dart';
 import '../models/counter.dart';
 
 enum CounterStatus { notStarted, running, pause, completed }
 
-class CounterController {
+class CounterController extends CounterInteractor {
   final counter = Counter();
 
   late Timer? timer;
   int second = 60;
   CounterStatus _counterStatus = CounterStatus.notStarted;
   CounterController() {
+    CounterInteractor.setup(this);
     counter.onTimerStartOrChange(_counterStatus.name, second);
   }
 
-  onTimerStartClick(AppActions action) {
-    onPauseOrStart();
+  @override
+  void onTimerStartOrChange() {
+      onPauseOrStart();
   }
 
   onTimerValueChange() {
@@ -23,12 +24,13 @@ class CounterController {
     if (second == 0) {
       timer?.cancel();
       _counterStatus = CounterStatus.completed;
+      second = 60;
     }
     passDataToNative();
   }
 
   passDataToNative() {
-    counter.onTimerStartOrChange(_counterStatus.name, second);    
+    counter.onTimerStartOrChange(_counterStatus.name, second);
   }
 
   onPauseOrStart() {

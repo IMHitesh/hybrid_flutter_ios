@@ -17,12 +17,8 @@ abstract class Login {
   void validateCredential(bool isValid);
 }
 
-@HostApi()
-abstract class Splash {  
-  void onAuthStatusChange(bool isLogin);
+@FlutterApi()
+abstract class LoginInteractor {
+  void doLogin(String email, String password);
+  void validateCredential(String email, String password);
 }
-
-// @FlutterApi()
-// abstract class UserAuthenticationFlutter {
-//   void doLogin(String email, String password);  
-// }

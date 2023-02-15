@@ -9,6 +9,7 @@ import UIKit
 import SVProgressHUD
 
 class SplashScreen: BaseViewController {
+    let splashInteractor = SplashInteractor(binaryMessenger: flutterEngine.binaryMessenger)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +21,7 @@ class SplashScreen: BaseViewController {
         SVProgressHUD.setBackgroundColor(.black)
         SVProgressHUD.setForegroundColor(.white)
         SVProgressHUD.show()
-        AppViewModel.shared.triggerFlutterMethod(action: .getAuthStatus)        
+        splashInteractor.getAuthStatus(completion: {})                
     }
 }
 
