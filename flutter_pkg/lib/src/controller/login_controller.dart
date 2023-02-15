@@ -3,8 +3,6 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../actions/app_actions.dart';
 import '../models/user.dart';
-// import '../models/user.dart';
-// import 'app_controller.dart';
 
 class LoginController {
   String enteredEmail = "";
