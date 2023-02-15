@@ -10,17 +10,16 @@ import Flutter
 //import FlutterPluginRegistrant
 
 
+var flutterEngine = FlutterEngine(name: "my flutter engine")
+
 @main
 class AppDelegate: FlutterAppDelegate {
         
     
-    lazy var flutterEngine = FlutterEngine(name: "my flutter engine")
-    
     override func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         flutterEngine.run()
-        GeneratedPluginRegistrant.register(with: self.flutterEngine)
-        
+        GeneratedPluginRegistrant.register(with:flutterEngine)            
         let appConfig:[String : String] = [
             "env": "development",
             "api": "api",

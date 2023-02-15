@@ -7,12 +7,13 @@
 
 import Foundation
 import UIKit
+import SVProgressHUD
 
 class DashboardVC: BaseViewController {
     
     @IBOutlet weak var tblUser : UITableView!
     
-    lazy var viewModel = DashboardViewModel()
+    var users: [User] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,19 +22,22 @@ class DashboardVC: BaseViewController {
     
     ///Init data
     private func setup(){
-        viewModel.delegate = self
+        DashboardSetup.setUp(binaryMessenger: flutterEngine.binaryMessenger, api: self)
+        
         tblUser.delegate = self
         tblUser.dataSource = self
         tblUser.tableFooterView = UIView()
         tblUser.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        viewModel.getDashboardData()
+        SVProgressHUD.show()
+        AppViewModel.shared.triggerFlutterMethod(action: .getDashboardData)
     }
 }
 
 //MARK: Actions
 extension DashboardVC{
     @IBAction func btnLogoutClick(){
-        viewModel.onLogoutClick()
+        SVProgressHUD.show()
+        AppViewModel.shared.triggerFlutterMethod(action: .logoutClick)
     }
     
     @IBAction func btnStartTimerClick(){
@@ -42,10 +46,15 @@ extension DashboardVC{
 }
 
 //MARK: DashboardDelegate - Callback from the flutter
-extension DashboardVC: DashboardDelegate {
-    func onLogoutSuccess() {
-        Router.navigateToLogin()
-        viewModel.removeObserver()
+extension DashboardVC: Dashboard {
+    func onUserFetch(users: [User]?, message: String) throws {
+        SVProgressHUD.dismiss()
+        self.users = users ?? []
+        reload()
+    }
+    
+    func onLogout(isLogout: Bool, message: String) throws {
+        Router.navigateToLogin()        
     }
     
     func reload() {
@@ -56,13 +65,13 @@ extension DashboardVC: DashboardDelegate {
 //MARK: UITableView Delegate & Datasource
 extension DashboardVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.users.count
+        return users.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
-        let user =  viewModel.users[indexPath.row]
+        let user =  users[indexPath.row]
 
         cell.textLabel?.text = "User Name: \(user.name ?? "")"
         cell.detailTextLabel?.text = "Email: \(user.email ?? "")"

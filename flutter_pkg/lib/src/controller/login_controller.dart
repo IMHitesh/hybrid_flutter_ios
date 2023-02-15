@@ -1,14 +1,15 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../actions/app_actions.dart';
 import '../models/user.dart';
-import 'app_controller.dart';
+// import '../models/user.dart';
+// import 'app_controller.dart';
 
 class LoginController {
   String enteredEmail = "";
   String enteredPassword = "";
+  final login = Login();
 
   validateEmailPassword(Map<String, dynamic>? data, AppActions action) {
     String? email = data?["email"] ?? "";
@@ -22,7 +23,7 @@ class LoginController {
       enteredPassword = password;
       isValid = true;
     }
-    AppController.triggerNativeMethod(action, {"is_valid": isValid});
+    login.validateCredential(isValid);
   }
 
   onLoginClick(AppActions action) async {
@@ -30,25 +31,31 @@ class LoginController {
     if (user != null) {
       final pref = await SharedPreferences.getInstance();
       pref.setBool("is_login", true);
-      final jsonUser = user.toJson();
-      jsonUser["is_login"] = true;
-      jsonUser["message"] = "Login successfully...";
-      AppController.triggerNativeMethod(action, jsonUser);
-    } else {      
+      // final jsonUser = user.toJson();
+      // jsonUser["is_login"] = true;
+      // jsonUser["message"] = "Login successfully...";
+      login.loginSuccess(user);
+      // AppController.triggerNativeMethod(action, jsonUser);
+    } else {
       Map<String, dynamic> json = {};
       json["is_login"] = false;
-      json["message"] = "Unable to login with given credential. Please make sure you've entered correct username and password";
-      AppController.triggerNativeMethod(action, json);
+      json["message"] =
+          "Unable to login with given credential. Please make sure you've entered correct username and password";
+      const message =
+          "Unable to login with given credential. Please make sure you've entered correct username and password";
+      login.loginFailed(message);
+      // AppController.triggerNativeMethod(action, json);
     }
   }
 
   Future<User?> fetchUser(String email) async {
-    final response = await http.get(Uri.parse('https://gorest.co.in/public/v2/users'));
-    
+    final response =
+        await http.get(Uri.parse('https://gorest.co.in/public/v2/users'));
+
     if (response.statusCode == 200) {
-      List arrUsers = jsonDecode(response.body) ?? [];        
+      List arrUsers = jsonDecode(response.body) ?? [];
       for (var value in arrUsers) {
-        final user = User.fromJson(value);        
+        final user = User.fromJson(value);
         if (user.email?.toLowerCase() == email.toLowerCase()) {
           return user;
         }

@@ -6,10 +6,9 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class SplashScreen: BaseViewController {
-    
-    lazy var viewModel = SplashViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,15 +16,18 @@ class SplashScreen: BaseViewController {
     }
     
     private func setup(){
-        viewModel.delegate = self
-        viewModel.getAuthStatus()
+        SplashSetup.setUp(binaryMessenger: flutterEngine.binaryMessenger, api: self)
+        SVProgressHUD.setBackgroundColor(.black)
+        SVProgressHUD.setForegroundColor(.white)
+        SVProgressHUD.show()
+        AppViewModel.shared.triggerFlutterMethod(action: .getAuthStatus)        
     }
 }
 
 //Mark:- Login callback method
-extension SplashScreen: SplashDelegate{
-    func onAuthStatusResponse(isLoggedIn: Bool){        
-        if isLoggedIn {
+extension SplashScreen: Splash {
+    func onAuthStatusChange(isLogin: Bool) throws {
+        if isLogin {
             Router.navigateToDashboard()
         }else{
             Router.navigateToLogin()

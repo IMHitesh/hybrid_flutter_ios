@@ -12,7 +12,6 @@ class CounterVC: BaseViewController {
     @IBOutlet weak var lblStatus : UILabel!
     @IBOutlet weak var btnStartTimer : UIButton!
     
-    lazy var viewModel = CounterViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,37 +20,36 @@ class CounterVC: BaseViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        viewModel.removeObserver()
     }
     
     //Init data
     private func setup(){
-        viewModel.delegate = self
-        reload()
+        CounterSetup.setUp(binaryMessenger: flutterEngine.binaryMessenger, api: self)
+        AppViewModel.shared.triggerFlutterMethod(action: .countDownInit)
     }
 }
 
 //Mark:- Actions
 extension CounterVC {
     @IBAction func onCounterStartClick(){
-        viewModel.onTimerStartClick()
+        AppViewModel.shared.triggerFlutterMethod(action: .timerPauseOrChangeOrPause)        
     }
 }
 
 
 //Mark:- Counter delegates
-extension CounterVC: CounterDelegate {
-    func reload() {
-        if viewModel.state.lowercased() == "completed" {
+extension CounterVC: Counter {
+    func onTimerStartOrChange(state: String, duration: Int32) throws {
+        if state.lowercased() == "completed" {
             btnStartTimer.setTitle("Restart", for: .normal)
-        }else if viewModel.state.lowercased() == "running" {
+        }else if state.lowercased() == "running" {
             btnStartTimer.setTitle("Pause", for: .normal)
-        }else if viewModel.state.lowercased() == "pause" {
+        }else if state.lowercased() == "pause" {
             btnStartTimer.setTitle("Resume", for: .normal)
-        }else if viewModel.state.lowercased() == "notstarted" {
+        }else if state.lowercased() == "notstarted" {
             btnStartTimer.setTitle("Start Timer", for: .normal)
         }
-        lblStatus.text = "COUNTER IS \(viewModel.state)"
-        lblCounter.text = "\(viewModel.timerValue)"
+        lblStatus.text = "COUNTER IS \(state.uppercased())"
+        lblCounter.text = "\(duration)"
     }
 }

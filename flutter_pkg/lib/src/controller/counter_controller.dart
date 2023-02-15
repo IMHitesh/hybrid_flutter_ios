@@ -1,15 +1,17 @@
 import 'dart:async';
 import '../actions/app_actions.dart';
-import 'app_controller.dart';
+import '../models/counter.dart';
 
 enum CounterStatus { notStarted, running, pause, completed }
 
 class CounterController {
+  final counter = Counter();
+
   late Timer? timer;
   int second = 60;
   CounterStatus _counterStatus = CounterStatus.notStarted;
   CounterController() {
-    AppController.triggerNativeMethod(AppActions.countDownInit, {"seconds": second, "state": _counterStatus.name});
+    counter.onTimerStartOrChange(_counterStatus.name, second);
   }
 
   onTimerStartClick(AppActions action) {
@@ -26,8 +28,7 @@ class CounterController {
   }
 
   passDataToNative() {
-    AppController.triggerNativeMethod(AppActions.timerPauseOrChangeOrPause,
-        {"seconds": second, "state": _counterStatus.name});
+    counter.onTimerStartOrChange(_counterStatus.name, second);    
   }
 
   onPauseOrStart() {
@@ -39,7 +40,8 @@ class CounterController {
         second = 60;
       }
       _counterStatus = CounterStatus.running;
-      timer = Timer.periodic(const Duration(seconds: 1), (Timer t) => onTimerValueChange());
+      timer = Timer.periodic(
+          const Duration(seconds: 1), (Timer t) => onTimerValueChange());
     }
     passDataToNative();
   }
